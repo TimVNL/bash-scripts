@@ -17,13 +17,12 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7638D0442B90D010
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
 echo 'deb http://ftp.debian.org/debian stretch-backports main' | tee -a /etc/apt/sources.list.d/stretch-backports.list
 echo ""
-echo "installing certbot nginx from debian-backports"
-apt-get -y -t stretch-backports install python-certbot nginx
+echo "installing certbot, nginx and nginx-extras from debian-backports"
+apt-get -y -t stretch-backports install python-certbot nginx nginx-extras
 echo "making a backup of /etc/nginx/nginx.comf before continuing"
 cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.default
 echo ""
 echo "simplifying nginx folder structure"
-mv /etc/nginx/modules-enabled/ /etc/nginx/modules/
 rm -r /etc/nginx/modules-available/
 # See: https://serverfault.com/questions/527630/what-is-the-different-usages-for-sites-available-vs-the-conf-d-directory-for-ngi
 mv /etc/nginx/sites-available/default /etc/nginx/conf.d/default.conf
@@ -32,8 +31,10 @@ echo
 echo "placing optimized and secure /etc/nginx/nginx.conf"
 rm /etc/nginx/nginx.conf
 cp $SCRIPT_PATH/nginx.conf /etc/nginx/nginx.conf
-echo "placing ssl-params.conf"
-cp $SCRIPT_PATH/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
+echo "placing snippets in /etc/nginx/snippets"
+cp $SCRIPT_PATH/letsencrypt-acme-challenge.snippet /etc/nginx/snippets/letsencrypt-acme-challenge.conf
+cp $SCRIPT_PATH/security-headers.snippet /etc/nginx/snippets/security-headers.conf
+cp $SCRIPT_PATH/ssl-params.snippet /etc/nginx/snippets/ssl-params.conf
 echo "placing optimized /etc/letsencrypt/cli.ini"
 mv /etc/letsencrypt/cli.ini /etc/letsencrypt/cli.ini.default
 mkdir -p /var/www/letsencrypt/

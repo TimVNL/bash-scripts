@@ -13,8 +13,8 @@ ssl_stapling on;
 ssl_stapling_verify on;
 resolver 8.8.8.8 8.8.4.4 valid=300s;
 resolver_timeout 5s;
+
+# config to enable HSTS(HTTP Strict Transport Security) https://developer.mozilla.org/en-US/docs/Security/HTTP_Strict_Transport_Security
+# to avoid ssl stripping https://en.wikipedia.org/wiki/SSL_stripping#SSL_stripping
+# also https://hstspreload.org/
 add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload";
-add_header X-Frame-Options DENY;
-add_header X-Content-Type-Options nosniff;
-add_header X-XSS-Protection "1; mode=block";
-add_header X-Robots-Tag none;
