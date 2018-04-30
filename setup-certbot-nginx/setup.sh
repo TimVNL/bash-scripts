@@ -17,8 +17,8 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7638D0442B90D010
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
 echo 'deb http://ftp.debian.org/debian stretch-backports main' | tee -a /etc/apt/sources.list.d/stretch-backports.list
 echo ""
-echo "installing certbot, nginx and nginx-extras from debian-backports"
-apt-get -y -t stretch-backports install python-certbot nginx nginx-extras
+echo "installing latest openssl, certbot, nginx from debian-backports"
+apt-get -y -t stretch-backports install openssl python-certbot nginx-extras
 echo "making a backup of /etc/nginx/nginx.comf before continuing"
 cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.default
 echo ""
