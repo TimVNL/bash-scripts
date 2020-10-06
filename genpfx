@@ -1,0 +1,29 @@
+#!/bin/bash
+# A shell script to generate a PFX file with CA-BUNDLE
+# Written by: TimVNL
+# Version: 20201006
+
+#Set variables
+currentdir=$(pwd) 		# Get Current Working Dir
+OUTFILE=$1
+PRIVKEY=$2
+CERTFILE=$3
+CABUNDLE=$4
+
+#script
+echo ""
+echo "Generating .PFX file with ca-bundle"
+echo ""
+echo "PFX Information"
+echo "------------------------------------"
+echo "Certificate directory:  $currentdir"
+echo "Private key used:       $PRIVKEY"
+echo "Certificate used:       $CERTFILE"
+echo "CA-bundle used:         $CABUNDLE"
+echo "PFX name:               $OUTFILE.pfx"
+echo "------------------------------------"
+echo ""
+read -p "Check for errors press [enter] when everything is correct..."
+
+cd $currentdir
+openssl pkcs12 -export -out $OUTFILE.pfx -inkey $PRIVKEY -in $CERTFILE -certfile $CABUNDLE
