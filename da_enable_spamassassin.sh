@@ -23,6 +23,7 @@ if [ "$spam" = "ON" ]; then
   if [ "${domain}" != "" ]; then
      FILTERCONF=/etc/virtual/${domain}/filter.conf
      if [ ! -s ${FILTERCONF} ]; then
+        echo 'adult=ON' > ${FILTERCONF}
         echo 'high_score=15' > ${FILTERCONF}
         echo 'high_score_block=no' >> ${FILTERCONF}
         echo 'where=userspamfolder' >> ${FILTERCONF}
